@@ -1,53 +1,75 @@
-import { Component, OnDestroy } from '@angular/core';
+import {  OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AppService } from './app.service';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-
+import { NgSelectModule, NgOption } from '@ng-select/ng-select';
+import { Component, NgModule, ViewChild } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import {
+  ReactiveFormsModule,
+  FormsModule
+} from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnDestroy {
+  title = 'Find testers application';
 
-  constructor(private appService: AppService) {}
+  countries: any[] = [];
+  devices: any[] = [];
+  public results : any;
 
-  title = 'angular-nodejs-example';
+  inputDevices: any;
+  inputCountries: any;
 
-  userForm = new FormGroup({
-    firstName: new FormControl('', Validators.nullValidator && Validators.required),
-    lastName: new FormControl('', Validators.nullValidator && Validators.required),
-    email: new FormControl('', Validators.nullValidator && Validators.required)
-  });
+  constructor(private appService: AppService) {
+      this.getAllDevices();
+      this.getAllCountries();
+  }
 
-  users: any[] = [];
-  userCount = 0;
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   onSubmit() {
-    this.appService.addUser(this.userForm.value, this.userCount + 1).pipe(takeUntil(this.destroy$)).subscribe(data => {
-      console.log('message::::', data);
-      this.userCount = this.userCount + 1;
-      console.log(this.userCount);
-      this.userForm.reset();
+    this.appService.getTesters(this.inputCountries, this.inputDevices).pipe(takeUntil(this.destroy$)).subscribe(data => {
+      this.results = data;
     });
   }
 
-  getAllUsers() {
-    this.appService.getUsers().pipe(takeUntil(this.destroy$)).subscribe((users: any[]) => {
-		this.userCount = users.length;
-        this.users = users;
-    });
+
+
+  getAllCountries() {
+    this.appService.getAllCountries().pipe(takeUntil(this.destroy$)).subscribe((country: any[]) => {
+          const c = [];
+          for(var x = 0; x < country.length; x ++){
+            c.push(country[x]);
+          }
+          c.push("All");
+          this.countries = c;
+     });
+
   }
+
+
+
+    getAllDevices() {
+      this.appService.getAllDevices().pipe(takeUntil(this.destroy$)).subscribe((devs: any) => {
+          const d = [];
+          for (const device in devs ) {
+            d.push(devs[device]);
+          }
+          d.push("All");
+          this.devices = d;
+      });
+    }
 
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
   }
 
-  ngOnInit() {
-	this.getAllUsers();
-  }
+  ngOnInit() {}
 }

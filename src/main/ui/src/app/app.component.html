@@ -2,36 +2,45 @@
 <div class="container">
   <div class="row">
     <div class="col-md-7 mrgnbtm">
-      <h2>Create User</h2>
-      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <h2>Find Tester(s)</h2>
+      <form (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="form-group col-md-6">
-            <label for="exampleInputEmail1">First Name</label>
-            <input type="text" class="form-control" formControlName="firstName" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First Name">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="exampleInputPassword1">Last Name</label>
-            <input type="text" class="form-control" formControlName="lastName" id="exampleInputPassword1" placeholder="Last Name">
+            <label>Country</label>
+            <ng-select [items]="countries"
+                       multiple="true"
+                       bindLabel="name"
+                       bindValue="id"
+                       [(ngModel)]="inputCountries"
+                       [ngModelOptions]="{standalone: true}">
+            </ng-select>
           </div>
         </div>
         <div class="row">
-          <div class="form-group col-md-12">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="text" class="form-control" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email">
+          <div class="form-group col-md-6">
+
+            <label>Device</label>
+          <ng-select [items]="devices"
+                     bindLabel="name"
+                     bindValue="id"
+                     multiple="true"
+                     [(ngModel)]="inputDevices"
+                     [ngModelOptions]="{standalone: true}">
+          </ng-select>
           </div>
         </div>
-        <button type="submit" [disabled]="!userForm.valid" class="btn btn-danger">Create</button>
+        <button type="submit" class="btn btn-danger">Find Testers</button>
       </form>
     </div>
-    <div class="col-md-4 mrgnbtm">
-      <app-display-board
-       [userCount]="userCount"
-       (getUsersEvent)="getAllUsers()"
-      >
-      </app-display-board>
-    </div>
+    <ul>
+      <li *ngFor="let tester of results">
+        <div>
+          {{tester.name}} , <b>Number of Bugs:</b>{{tester.numberOfBugs}},
+          <b>Device name:</b> {{tester.deviceId}}
+        </div>
+      </li>
+    </ul>
   </div>
+
 </div>
-<div class="mrgnbtm">
-  <app-users *ngIf="users.length !== 0" [users]="users"></app-users>
-</div>
+

@@ -10,13 +10,21 @@ export class AppService {
 
   rootURL = '/api';
 
-  getUsers() {
-    return this.http.get(this.rootURL + '/users');
+  getAllDevices() {
+    return this.http.get(this.rootURL + '/devices');
   }
 
-  addUser(user: any, id: number) {
-	user.id = id;
-	return this.http.post(this.rootURL + '/user', user);
+  getAllCountries() {
+     return this.http.get(this.rootURL + '/countries');
+  }
+
+  getTesters(country: String [], device: String [] ) {
+    const params = {
+        "country": country,
+        "device": device
+    };
+    let search = JSON.stringify(params);
+	return this.http.post(this.rootURL + '/testers', search);
   }
 
 }

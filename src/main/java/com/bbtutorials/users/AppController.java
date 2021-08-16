@@ -13,7 +13,7 @@ public class AppController {
 	
 	@RequestMapping({"/"})
 	public String loadUI() {
-		log.info("loading UIssdd");
+		//log.info("loading UIssdd");
 		return "forward:/index.html";
 	}
 
