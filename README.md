@@ -10,7 +10,8 @@ To be able to run the application the following need to be installed:
 -Maven
 -AngualrCLI
 -Typescript
--Java
+-Java (8 +)
+-Node version (12+)
 
 Steps for running project:
 
