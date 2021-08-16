@@ -30,8 +30,8 @@ To run angular:
 
 Navigate to the directoray containing package.json.
 
--npm install 
--npm start
+1. npm install 
+2. npm start
 
 Resources for project structure:
 https://medium.com/bb-tutorials-and-thoughts/how-to-develop-and-build-angular-app-with-java-backend-87fb603c6e17
