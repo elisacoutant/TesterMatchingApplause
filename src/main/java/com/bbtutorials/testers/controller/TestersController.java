@@ -1,12 +1,13 @@
-package com.bbtutorials.users.controller;
+package com.bbtutorials.testers.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import com.bbtutorials.users.TesterDevices;
-import com.bbtutorials.users.Testers;
-import com.bbtutorials.users.entity.ResultTester;
+
+import com.bbtutorials.testers.TesterDevices;
+import com.bbtutorials.testers.Testers;
+import com.bbtutorials.testers.entity.ResultTester;
 
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
@@ -14,7 +15,7 @@ import net.minidev.json.parser.ParseException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.bbtutorials.users.links.AppLinks;
+import com.bbtutorials.testers.links.AppLinks;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,7 +35,7 @@ public class TestersController {
         List<String> countries = (ArrayList<String>)json.get("country");
         List<String> devices   = (ArrayList<String>)json.get("device");
 
-        if(countries.size() > 0 && devices.size() > 0) {
+        if(countries != null && countries.size() > 0 && devices != null && devices.size() > 0) {
             resource = validTesters.searchTesters(countries, devices);
         }
         return ResponseEntity.ok(resource);

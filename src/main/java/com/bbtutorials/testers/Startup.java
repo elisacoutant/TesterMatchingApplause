@@ -1,4 +1,4 @@
-package com.bbtutorials.users;
+package com.bbtutorials.testers;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;

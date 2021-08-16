@@ -1,9 +1,9 @@
-package com.bbtutorials.users;
+package com.bbtutorials.testers;
 
-import com.bbtutorials.users.controller.TestersController;
-import com.bbtutorials.users.entity.ResultTester;
-import com.bbtutorials.users.entity.Tester;
-import com.bbtutorials.users.entity.TesterDevice;
+import com.bbtutorials.testers.Bugs;
+import com.bbtutorials.testers.TesterDevices;
+import com.bbtutorials.testers.Testers;
+import com.bbtutorials.testers.entity.ResultTester;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -18,7 +18,6 @@ class TestersApplicationTest {
 	@Test
 	void contextLoads() {
 	}
-
 
 	@Test
 	void parseBugsCSV() throws IOException {
@@ -46,15 +45,6 @@ class TestersApplicationTest {
 
 		assertThat(Testers.countries.size()).isGreaterThan(1);
 		assertThat(Testers.countries.contains("US"));
-
 	}
 
-	@Test
-	void getNoTesterss() throws IOException {
-		TesterDevices t = new TesterDevices();
-		List<ResultTester> results = t.searchTesters(null, null);
-
-		assertThat(results.size()).isEqualTo(0);
-
-	}
 }

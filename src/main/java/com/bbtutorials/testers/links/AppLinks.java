@@ -1,4 +1,4 @@
-package com.bbtutorials.users.links;
+package com.bbtutorials.testers.links;
 
 import org.springframework.stereotype.Component;
 

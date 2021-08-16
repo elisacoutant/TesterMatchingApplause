@@ -1,18 +1,17 @@
-package com.bbtutorials.users;
+package com.bbtutorials.testers;
 
-import com.bbtutorials.users.entity.Tester;
+import com.bbtutorials.testers.entity.Tester;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 public class Testers {
 
-    public static ArrayList<Tester> testers =  new ArrayList<>();
+    //Map of testerId to tester object
+    public static Map<Integer, Tester> testers =  new HashMap<Integer, Tester>();
     public static Set<String> countries =  new HashSet<>();
 
     public void parseCSV() throws IOException {
@@ -24,7 +23,7 @@ public class Testers {
         String s = currentRelativePath.toAbsolutePath().toString();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/users/testers.csv"));
+            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/testers/csv/testers.csv"));
             while ((line = br.readLine()) != null)
             {
                 if(!firstLine) {
@@ -36,7 +35,7 @@ public class Testers {
                     String lastLogin =  bug[4].replace("\"", "");
 
                     Tester t = new Tester(testerId, firstName, lastName,country ,lastLogin);
-                    testers.add(t);
+                    testers.put(testerId, t);
 
                     if(!countries.contains(country)){
                         countries.add(country);

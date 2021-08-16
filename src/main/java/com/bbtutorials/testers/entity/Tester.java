@@ -1,12 +1,11 @@
-package com.bbtutorials.users.entity;
+package com.bbtutorials.testers.entity;
 
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import java.sql.Time;
-import java.sql.Timestamp;
+
 
 @Entity
 @Table(name = "tester")

@@ -1,12 +1,8 @@
-package com.bbtutorials.users;
+package com.bbtutorials.testers;
 
-import com.bbtutorials.users.service.TestersService;
-import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.BeansException;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.IOException;
 

@@ -1,7 +1,7 @@
-package com.bbtutorials.users.controller;
+package com.bbtutorials.testers.controller;
 
-import com.bbtutorials.users.Devices;
-import com.bbtutorials.users.links.AppLinks;
+import com.bbtutorials.testers.Devices;
+import com.bbtutorials.testers.links.AppLinks;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

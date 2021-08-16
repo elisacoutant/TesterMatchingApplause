@@ -1,14 +1,8 @@
-package com.bbtutorials.users;
-
-import com.bbtutorials.users.entity.Bug;
-import com.bbtutorials.users.entity.Device;
-import com.bbtutorials.users.service.BugService;
-import org.springframework.beans.factory.annotation.Autowired;
+package com.bbtutorials.testers;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,7 +12,7 @@ public class Devices {
     public static Map<Integer, String> devices =  new HashMap<Integer, String>();
 
 
-    public void parseCSV() throws IOException {
+    public void parseCSV()  {
 
         String line = "";
         String splitBy = ",";
@@ -27,7 +21,7 @@ public class Devices {
         String s = currentRelativePath.toAbsolutePath().toString();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/users/devices.csv"));
+            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/testers/csv/devices.csv"));
             while ((line = br.readLine()) != null)
             {
                 if(!firstLine) {

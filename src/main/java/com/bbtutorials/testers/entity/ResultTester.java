@@ -1,4 +1,4 @@
-package com.bbtutorials.users.entity;
+package com.bbtutorials.testers.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

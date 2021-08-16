@@ -1,9 +1,8 @@
-package com.bbtutorials.users;
+package com.bbtutorials.testers;
 
-import com.bbtutorials.users.entity.Device;
-import com.bbtutorials.users.entity.ResultTester;
-import com.bbtutorials.users.entity.Tester;
-import com.bbtutorials.users.entity.TesterDevice;
+import com.bbtutorials.testers.entity.ResultTester;
+import com.bbtutorials.testers.entity.Tester;
+import com.bbtutorials.testers.entity.TesterDevice;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,12 +15,19 @@ public class TesterDevices {
 
     public static List<TesterDevice> testerDevices = new ArrayList<>();
 
-
     public List<ResultTester> searchTesters(List<String> countries, List<String> devices){
         List<ResultTester> validTesters = new ArrayList<ResultTester>();
 
-        if(countries == null|| countries.isEmpty() || devices == null || devices.isEmpty()){
-            return validTesters;
+        //Handle case for all
+        if(countries.contains("All")){
+            countries.clear();
+            countries.addAll(Testers.countries);
+        }
+
+        //Handle case for all
+        if(devices.contains("All")){
+            devices.clear();
+            devices.addAll(Devices.devices.values());
         }
 
         //Iterate through testers to get the ones from a certain country
@@ -30,17 +36,15 @@ public class TesterDevices {
         //Get all the devices a user can test on
         Map<Integer, List<Integer>> testerDevices = getTesterDevices(testerCountryIDs, devices);
 
-
         for(int testerId : testerDevices.keySet()){
             List<Integer> possibleDevices = testerDevices.get(testerId);
 
             if(Bugs.bugs.get(testerId) != null){
                 HashMap<Integer, Integer> numberOfBugsOnDevice = Bugs.bugs.get(testerId);
-
                 if(possibleDevices != null && numberOfBugsOnDevice != null) {
                     for (int devs = 0; devs < possibleDevices.size(); devs++) {
                         int currDeviceID = possibleDevices.get(devs);
-                        if (numberOfBugsOnDevice.get(currDeviceID) != null && Testers.testers.get(testerId) !=null) {
+                        if (numberOfBugsOnDevice.containsKey(currDeviceID)) {
                             String name = Testers.testers.get(testerId).getFirstName() + " " + Testers.testers.get(testerId).getLastName();
                             String deviceName = Devices.devices.get(currDeviceID);
                             ResultTester result = new ResultTester(testerId, deviceName, numberOfBugsOnDevice.get(currDeviceID), name);
@@ -59,8 +63,8 @@ public class TesterDevices {
     public List<Integer> getTesterCountries(List<String> countries){
         //Iterate through testers to get the ones from a certain country
         List<Integer> testerCountryIDs = new ArrayList<Integer>();
-        for(int x  = 0; x < Testers.testers.size(); x++){
-            Tester t = Testers.testers.get(x);
+        for(int testerID: Testers.testers.keySet()){
+            Tester t = Testers.testers.get(testerID);
             if(countries.contains(t.getCountry())){
                 testerCountryIDs.add(t.getId());
             }
@@ -95,11 +99,6 @@ public class TesterDevices {
         return searchTesterDevices;
     }
 
-//    public void sortTestersByExperience(ArrayList<ResultTester> validTesters){
-//        Collections.sort(validTesters,
-//                ResultTester.testerComparator);
-//    }
-
     public void parseCSV() throws IOException {
 
         String line = "";
@@ -109,7 +108,7 @@ public class TesterDevices {
         String s = currentRelativePath.toAbsolutePath().toString();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/users/tester_device.csv"));
+            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/testers/csv/tester_device.csv"));
             while ((line = br.readLine()) != null)
             {
                 if(!firstLine) {

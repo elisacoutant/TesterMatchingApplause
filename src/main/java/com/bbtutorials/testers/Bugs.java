@@ -1,27 +1,15 @@
-package com.bbtutorials.users;
+package com.bbtutorials.testers;
 
-import com.bbtutorials.users.entity.Bug;
-import com.bbtutorials.users.repository.BugRepository;
-import com.bbtutorials.users.service.BugService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-
-import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class Bugs {
 
     //Map of testerID to the map of ( device : number of bugs)
     public static HashMap<Integer, HashMap<Integer, Integer>> bugs =  new HashMap<Integer, HashMap<Integer, Integer>>();
 
-    @Autowired
-    BugService bugService;
 
     public void parseCSV() throws IOException {
 
@@ -32,7 +20,7 @@ public class Bugs {
         String s = currentRelativePath.toAbsolutePath().toString();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/users/bugs.csv"));
+            BufferedReader br = new BufferedReader(new FileReader(s + "/src/main/java/com/bbtutorials/testers/csv/bugs.csv"));
             while ((line = br.readLine()) != null)
             {
                 if(!firstLine) {
