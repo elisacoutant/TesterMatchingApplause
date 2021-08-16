@@ -21,10 +21,15 @@ Steps for running project:
 
 To run the java code:
 
+Navigate to the directoray containing pom.xml.
+
  1. mvn clean install
  2. java -jar target/users-0.0.1-SNAPSHOT.jar
  
 To run angular:
+
+Navigate to the directoray containing package.json.
+
 -npm install 
 -npm start
 
